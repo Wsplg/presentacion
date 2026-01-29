@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -6,32 +6,29 @@ vocales = ["a", "e", "i", "o", "u"]
 
 @app.route("/")
 def home():
-    return (
-        "Servicio activo.<br>"
-        "Usa /comprobar?caracter=a para probar.<br>"
-        '<a href="https://www.youtube.com/watch?v=GrburVLmFP8&pp=ygUKZ3JpdG8gbWVtZQ%3D%3D">Saber más</a>'
-    )
+    return """
+    <h1>🎉 Comprobador de Vocales Guay 🎉</h1>
+    <p>Escribe un carácter y pulsa comprobar:</p>
+    <form action="/comprobar" method="get">
+        <input type="text" name="caracter" maxlength="1" required>
+        <button type="submit">Comprobar</button>
+    </form>
+    <p>Puedes probar letras y ver colores y emojis!</p>
+    """
 
 @app.route("/comprobar")
 def comprobar():
-    caracter = request.args.get("caracter", "")
+    caracter = request.args.get("caracter", "").lower()
 
     if caracter == "":
-        return jsonify(error="No has enviado ningún carácter")
+        return "<p style='color:red;'>No has escrito ningún carácter 😢</p>"
 
-    if caracter == " ":
-        return jsonify(resultado="Se termina la comprobación")
-
-    if caracter.lower() in vocales:
-        return jsonify(
-            caracter=caracter,
-            resultado="VOCAL"
-        )
+    if caracter in vocales:
+        return f"<p style='color:green; font-size:24px;'>✅ {caracter.upper()} es una VOCAL 🎵</p>" \
+               "<a href='/'>Volver</a>"
     else:
-        return jsonify(
-            caracter=caracter,
-            resultado="NO VOCAL"
-        )
+        return f"<p style='color:blue; font-size:24px;'>❌ {caracter.upper()} NO es una vocal 🚫</p>" \
+               "<a href='/'>Volver</a>"
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
