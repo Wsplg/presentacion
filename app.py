@@ -8,7 +8,8 @@ vocales = ["a", "e", "i", "o", "u"]
 def home():
     return (
         "Servicio activo.<br>"
-        "Usa /comprobar?caracter=a para probar."
+        "Usa /comprobar?caracter=a para probar.<br>"
+        '<a href="https://www.youtube.com/watch?v=GrburVLmFP8&pp=ygUKZ3JpdG8gbWVtZQ%3D%3D">Saber más</a>'
     )
 
 @app.route("/comprobar")
