@@ -20,7 +20,7 @@ def comprobar():
     caracter = request.args.get("caracter", "").lower()
 
     if caracter == ".":
-        return "<p style='color:red;'>Que ten bien fuertito, Ancor.</p>"
+        return "<p style='color:red;'>Que te den bien fuertito, Ancor.</p>"
 
     # Comprobar si es letra
     if not caracter.isalpha():
